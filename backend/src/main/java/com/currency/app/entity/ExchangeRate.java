@@ -14,10 +14,7 @@ public class ExchangeRate {
     private String currencyCode;
     private Double rate;
 
-    // Getters and Setters
-    public String getCurrencyCode() {
-        return currencyCode;
-    }
+
 
     // Setter for currencyCode
     public void setCurrencyCode(String currencyCode) {
@@ -29,8 +26,4 @@ public class ExchangeRate {
         this.rate = rate;
     }
 
-
-    public Double getRate() {
-        return rate;
-    }
 }
