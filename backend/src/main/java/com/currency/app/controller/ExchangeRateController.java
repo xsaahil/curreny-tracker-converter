@@ -1,11 +1,8 @@
 package com.currency.app.controller;
 
-import com.currency.app.entity.ExchangeRate;
 import com.currency.app.service.ExchangeRateService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
 
 @RestController
 @RequestMapping("/api/v1/exchange-rates")
@@ -32,19 +29,11 @@ public class ExchangeRateController {
             return currencyCode;
         }
 
-        // Setter for currencyCode
-        public void setCurrencyCode(String currencyCode) {
-            this.currencyCode = currencyCode;
-        }
 
         // Getter for rate
         public Double getRate() {
             return rate;
         }
 
-        // Setter for rate
-        public void setRate(Double rate) {
-            this.rate = rate;
-        }
     }
 }
