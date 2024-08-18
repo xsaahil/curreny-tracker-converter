@@ -1,39 +1,38 @@
 package com.currency.app.controller;
 
+import com.currency.app.entity.ExchangeRate;
 import com.currency.app.service.ExchangeRateService;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
-@RequestMapping("/api/v1/exchange-rates")
 public class ExchangeRateController {
 
     private final ExchangeRateService exchangeRateService;
 
-    @Autowired
     public ExchangeRateController(ExchangeRateService exchangeRateService) {
         this.exchangeRateService = exchangeRateService;
     }
 
-    @PostMapping
-    public void addExchangeRate(@RequestBody ExchangeRateRequest request) {
-        exchangeRateService.addCurrency(request.getCurrencyCode(), request.getRate());
+    @GetMapping("/exchange-rate")
+    public ResponseEntity<List<ExchangeRate>> findAll() {
+       return ResponseEntity.ok(exchangeRateService.findAll());
     }
 
-    public static class ExchangeRateRequest {
-        private String currencyCode;
-        private Double rate;
-
-        // Getters and Setters
-        public String getCurrencyCode() {
-            return currencyCode;
+    @GetMapping("/exchange-rate/{code}")
+    public ResponseEntity<ExchangeRate> findByCode(@PathVariable String code) {
+        ExchangeRate exchangeRate = exchangeRateService.getExchangeByCode(code);
+        if (exchangeRate == null) {
+            return ResponseEntity.notFound().build();
         }
+        return ResponseEntity.ok(exchangeRate);
+    }
 
-
-        // Getter for rate
-        public Double getRate() {
-            return rate;
-        }
-
+    @PostMapping("/exchange-rate")
+    public ResponseEntity<String> createExchangeRate(@RequestBody ExchangeRate exchangeRate) {
+        exchangeRateService.createExchangeRate(exchangeRate);
+        return ResponseEntity.ok("Exchange rate created");
     }
 }

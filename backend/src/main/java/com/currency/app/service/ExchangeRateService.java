@@ -1,30 +1,36 @@
 package com.currency.app.service;
 
-import com.currency.app.repository.ExchangeRateRepository;
 import com.currency.app.entity.ExchangeRate;
-import org.springframework.beans.factory.annotation.Autowired;
+import com.currency.app.repository.ExchangeRateRepository;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
-public class ExchangeRateService {
+public class ExchangeRateService implements ExchangeRateRepository {
 
-    private final ExchangeRateRepository exchangeRateRepository;
+    private final List<ExchangeRate> exchangeRates = new ArrayList<>();
 
-    @Autowired
-    public ExchangeRateService(ExchangeRateRepository exchangeRateRepository) {
-        this.exchangeRateRepository = exchangeRateRepository;
+    @Override
+    public List<ExchangeRate> findAll() {
+        return exchangeRates;
     }
 
-    public List<ExchangeRate> getAllExchangeRates() {
-        return exchangeRateRepository.findAll();
+    @Override
+    public ExchangeRate getExchangeByCode(String code) {
+        for (ExchangeRate exchangeRate : exchangeRates) {
+            if (exchangeRate.getCurrencyCode().equals(code)) {
+                return exchangeRate;
+            }
+        }
+        return null;
     }
 
-    public void addCurrency(String currencyCode, Double rate) {
-        ExchangeRate exchangeRate = new ExchangeRate();
-        exchangeRate.setCurrencyCode(currencyCode);
-        exchangeRate.setRate(rate);
-        exchangeRateRepository.save(exchangeRate);
+    @Override
+    public void createExchangeRate(ExchangeRate exchangeRate) {
+        exchangeRates.add(exchangeRate);
     }
+
+
 }
