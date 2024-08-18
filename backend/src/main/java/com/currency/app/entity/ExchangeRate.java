@@ -12,24 +12,11 @@ public class ExchangeRate {
     private String currencyCode;
     private Double rate;
 
-    public ExchangeRate(Long id, String currencyName, String currencyCode, Double rate) {
-        this.id = id;
-        this.currencyName = currencyName;
-        this.currencyCode = currencyCode;
-        this.rate = rate;
-    }
 
     public ExchangeRate() {
 
     }
 
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
 
     public String getCurrencyName() {
         return currencyName;
