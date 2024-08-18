@@ -1,8 +1,12 @@
 package com.currency.app.entity;
 
+import jakarta.persistence.*;
 
+@Entity
 public class ExchangeRate {
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String currencyName;
     private String currencyCode;
@@ -13,6 +17,10 @@ public class ExchangeRate {
         this.currencyName = currencyName;
         this.currencyCode = currencyCode;
         this.rate = rate;
+    }
+
+    public ExchangeRate() {
+
     }
 
     public Long getId() {
