@@ -7,7 +7,6 @@ public class ExchangeRate {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
     private String currencyName;
     private String currencyCode;
     private Double rate;
